@@ -1,0 +1,16 @@
+function GrafSpace(A, n)
+global R
+hold on
+
+t=0:pi/180:2*pi;
+x=R*cos(t); 
+y=R*sin(t);
+z=0*sin(t)-700;
+plot(x,y,'Linewidth',2);
+plot3(x,y,z,'-');
+
+plot3(A(:,1), A(:,2), A(:,3),'.','color', [0.5 0 0.5], 'MarkerSize',3)
+grid on
+rotate3d on
+axis equal 
+hold off           

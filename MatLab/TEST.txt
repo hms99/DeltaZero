@@ -1,0 +1,11 @@
+clear
+global r R l L
+R = 80;
+r = 25;
+l = 225.5;
+L =  110;
+X = -50;
+Y = 34;
+Z = -200;
+[th1, th2, th3, ff] = IKinem(X, Y, Z)
+[x, y, z, fff] = FKinem(th1, th2, th3)

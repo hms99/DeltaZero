@@ -1,0 +1,9 @@
+clear
+global r R l L
+R = 160;
+r = 40;
+l = 400; 
+L = 200; 
+[A, n] = WorkSpace(); 
+%Cuboid(); 
+GrafSpace(A, n); 

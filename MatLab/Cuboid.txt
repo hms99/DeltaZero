@@ -1,0 +1,44 @@
+function [sum, middleZ] = Cuboid()
+s = 200*8; 
+sd = 360/s; 
+% tu chon maxZ !
+minZ = -200;
+maxZ = -700;
+for th = -30 : sd : 60
+    [~,~, Z, fl] = FKinem(th, th, th);
+    if (fl == 0)
+        if(minZ > Z)
+            minZ = Z;
+        end
+        if(maxZ < Z)
+            maxZ = Z;
+        end
+    end
+end
+middleZ = (maxZ+minZ)/2 
+orig_dist = (maxZ-middleZ); 
+dist = orig_dist; 
+sum = 0;
+Flag = zeros(8,1);
+while(orig_dist > sum && dist > 0.1)
+    sum = sum + dist;
+    [~,~,~,Flag(1)] = IKinem(+sum, +sum, middleZ+sum);
+    [~,~,~,Flag(2)] = IKinem(+sum, -sum, middleZ+sum);
+    [~,~,~,Flag(3)] = IKinem(-sum, -sum, middleZ+sum);
+    [~,~,~,Flag(4)] = IKinem(-sum, +sum, middleZ+sum);
+    [~,~,~,Flag(5)] = IKinem(+sum, +sum, middleZ-sum);
+    [~,~,~,Flag(6)] = IKinem(+sum, -sum, middleZ-sum);
+    [~,~,~,Flag(7)] = IKinem(-sum, -sum, middleZ-sum);
+    [~,~,~,Flag(8)] = IKinem(-sum, +sum, middleZ-sum);
+    if (min(Flag) < 0)
+        sum = sum - dist;
+        dist = dist/2;
+    end
+end
+hold on
+plotcube([2*sum 2*sum 2*sum],[-sum  -sum  middleZ-sum],.3,[0 1 0]);
+rotate3d on
+hold off
+sum
+workspace = 2*sum
+end
